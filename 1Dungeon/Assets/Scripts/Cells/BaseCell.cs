@@ -28,15 +28,10 @@ public class BaseCell : MonoBehaviour
             _index = value;
         }
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] private BaseGuide _thereGuide;
+    [SerializeField] private BaseGuide _backGuide;
+
+    public Vector3 GetPositionToThere(float t) => _thereGuide.GetInterpolatedPosition(t);
+    public Vector3 GetPositionToBack(float t) => _backGuide.GetInterpolatedPosition(t);
 }

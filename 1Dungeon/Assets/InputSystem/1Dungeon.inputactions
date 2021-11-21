@@ -34,21 +34,21 @@
                 },
                 {
                     "name": "WalkForward",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "64b76e75-5355-4fe7-bec7-b33f2cbcecf9",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Double",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "WalkBackward",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "a0979181-5c8f-4e7e-ae39-4515a3ff2bfb",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Double",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [

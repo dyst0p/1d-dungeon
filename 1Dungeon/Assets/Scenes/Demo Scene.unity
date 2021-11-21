@@ -1192,19 +1192,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7531598852611850437}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2092080659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2092080656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fefecebd9f02b5c4aa98f8a74eb7670e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _currentCell: {fileID: 3008980890856439816}
 --- !u!1001 &3008980890856439815
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1298,6 +1285,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2092080659, guid: 59a2cb30565f4db4a9d10f61b5b4a02c, type: 3}
+      propertyPath: _currentCell
+      value: 
+      objectReference: {fileID: 3008980890856439816}
     - target: {fileID: 7395533961420033465, guid: 59a2cb30565f4db4a9d10f61b5b4a02c,
         type: 3}
       propertyPath: m_Name
@@ -1307,6 +1298,31 @@ PrefabInstance:
         type: 3}
       propertyPath: field of view
       value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 7531598852611850439, guid: 59a2cb30565f4db4a9d10f61b5b4a02c,
+        type: 3}
+      propertyPath: speed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7531598852611850439, guid: 59a2cb30565f4db4a9d10f61b5b4a02c,
+        type: 3}
+      propertyPath: Manager
+      value: 
+      objectReference: {fileID: 1911955007}
+    - target: {fileID: 7531598852611850439, guid: 59a2cb30565f4db4a9d10f61b5b4a02c,
+        type: 3}
+      propertyPath: inMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7531598852611850439, guid: 59a2cb30565f4db4a9d10f61b5b4a02c,
+        type: 3}
+      propertyPath: _transitTime
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7531598852611850439, guid: 59a2cb30565f4db4a9d10f61b5b4a02c,
+        type: 3}
+      propertyPath: motionTarget
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7795792193992710593, guid: 59a2cb30565f4db4a9d10f61b5b4a02c,
         type: 3}
@@ -1371,25 +1387,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7531598852611850437}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7531598852611850439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7531598852611850438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e980ddbf7df873847b30d25cfcfb396b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0
-  inMotion: 0
-  motionTarget: {fileID: 0}
-  _transitTime: 3
-  Player: {fileID: 2092080659}
-  Manager: {fileID: 1911955007}
-  CurrentDirection: 0
 --- !u!114 &7531598852611850440
 MonoBehaviour:
   m_ObjectHideFlags: 0

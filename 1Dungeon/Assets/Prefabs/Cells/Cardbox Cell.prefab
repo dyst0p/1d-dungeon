@@ -79,7 +79,7 @@ PrefabInstance:
     - target: {fileID: 2904141849052107869, guid: 86f8fb0f235a5344691f862c1281838e,
         type: 3}
       propertyPath: m_Name
-      value: Cell
+      value: Cardbox Cell
       objectReference: {fileID: 0}
     - target: {fileID: 8685336730605617503, guid: 86f8fb0f235a5344691f862c1281838e,
         type: 3}
