@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerData : MonoBehaviour
 {
-    [SerializeField] BaseCell _currentCell;
+    [SerializeField] private BaseCell _currentCell;
     public BaseCell CurrentCell
     {
         get
@@ -16,15 +16,17 @@ public class PlayerData : MonoBehaviour
             _currentCell = value;
         }
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    [SerializeField] private float _walkSpeed;
+    public float WalkSpeed
     {
-        
+        get
+        {
+            return _walkSpeed;
+        }
+        set
+        {
+            _walkSpeed = value;
+        }
     }
 }

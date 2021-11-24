@@ -7,12 +7,11 @@ public enum MotionDirection { There, LeftWall, Back, RightWall };
 
 public class PlayerMovementController : MonoBehaviour
 {
-    public float speed = 1f; // need to relocate to PlayerData
     public bool inMotion = false;
     public bool isTransitionMade = false;
     public BaseCell motionTarget;
-    [SerializeField] private float _transitTime;
-    [SerializeField] private float _timeInMotion;
+    public const float _transitionDistance = 2;
+    [SerializeField] private float _distanceCovered;
 
 
     public PlayerData Player;
@@ -20,45 +19,28 @@ public class PlayerMovementController : MonoBehaviour
 
     public MotionDirection CurrentDirection = MotionDirection.There;
 
+    [SerializeField] private float _inputSensitivity;
+
     private void Update()
     {
         if (inMotion)
+            CalculateNewPosition();
+    }
+
+    public void OnMove(Vector2 input)
+    {
+        if (!inMotion)
         {
-            Vector3 newPosition = new Vector3();
-            _timeInMotion += Time.deltaTime;
-
-            if (_timeInMotion < _transitTime / 2)
+            if (((input.x > _inputSensitivity) && (CurrentDirection == MotionDirection.There))
+                || ((input.x < -_inputSensitivity) && (CurrentDirection == MotionDirection.Back)))
             {
-                float relativeTime = _timeInMotion / (_transitTime / 2);
-
-                if (CurrentDirection == MotionDirection.There)
-                    newPosition = Player.CurrentCell.GetPositionToThere(relativeTime);
-                if (CurrentDirection == MotionDirection.Back)
-                    newPosition = Player.CurrentCell.GetPositionToBack(relativeTime);
+                GoWhere();
             }
-            else
+            if (((input.x > _inputSensitivity) && (CurrentDirection == MotionDirection.Back))
+                || ((input.x < -_inputSensitivity) && (CurrentDirection == MotionDirection.There)))
             {
-                isTransitionMade = true;
-                Player.CurrentCell.Unit = null;
-                Player.CurrentCell = motionTarget;
-
-                float relativeTime = (_transitTime - _timeInMotion) / (_transitTime / 2);
-
-                if (CurrentDirection == MotionDirection.There)
-                    newPosition = motionTarget.GetPositionToBack(relativeTime);
-                if (CurrentDirection == MotionDirection.Back)
-                    newPosition = motionTarget.GetPositionToThere(relativeTime);
+                GoBack();
             }
-            if (_timeInMotion > _transitTime)
-            {
-                inMotion = false;
-                isTransitionMade = false;
-                newPosition = motionTarget.transform.position;
-                motionTarget = null;
-                _timeInMotion = 0;
-            }
-
-            Player.transform.position = newPosition;
         }
     }
 
@@ -66,8 +48,6 @@ public class PlayerMovementController : MonoBehaviour
     {
         if (inMotion)
             return;
-
-        _transitTime = 4 / speed;
 
         if (CurrentDirection == MotionDirection.There)
         {
@@ -91,9 +71,55 @@ public class PlayerMovementController : MonoBehaviour
             JumpToCell(Manager.GetCellByIndex(GetTargetIndex(MotionDirection.Back, -1)));
     }
 
-    public void OnFire()
+    private void CalculateNewPosition() // need refactoring
     {
-        Debug.Log("Fire Message");
+        Vector3 newPosition = new Vector3();
+        _distanceCovered += Time.deltaTime * Player.WalkSpeed;
+
+        if (_distanceCovered < _transitionDistance / 2)
+        {
+            float relativeTime = _distanceCovered / (_transitionDistance / 2);
+
+            if (CurrentDirection == MotionDirection.There)
+                newPosition = Player.CurrentCell.GetPositionToThere(relativeTime);
+            if (CurrentDirection == MotionDirection.Back)
+                newPosition = Player.CurrentCell.GetPositionToBack(relativeTime);
+        }
+        else
+        {
+            isTransitionMade = true;
+            Player.CurrentCell.Unit = null;
+            Player.CurrentCell = motionTarget;
+
+            float relativeTime = (_transitionDistance - _distanceCovered) / (_transitionDistance / 2);
+
+            if (CurrentDirection == MotionDirection.There)
+                newPosition = motionTarget.GetPositionToBack(relativeTime);
+            if (CurrentDirection == MotionDirection.Back)
+                newPosition = motionTarget.GetPositionToThere(relativeTime);
+        }
+        if (_distanceCovered > _transitionDistance)
+        {
+            inMotion = false;
+            isTransitionMade = false;
+            newPosition = motionTarget.transform.position;
+            motionTarget = null;
+            _distanceCovered = 0;
+        }
+
+        Player.transform.position = newPosition;
+    }
+
+    private void GoWhere()
+    {
+        motionTarget = Manager.GetCellByIndex(GetTargetIndex(MotionDirection.There, 1));
+        inMotion = true;
+    }
+
+    private void GoBack()
+    {
+        motionTarget = Manager.GetCellByIndex(GetTargetIndex(MotionDirection.Back, 1));
+        inMotion = true;
     }
 
     private int GetTargetIndex(MotionDirection direction, int shift)
