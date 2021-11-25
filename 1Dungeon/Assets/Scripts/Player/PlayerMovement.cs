@@ -63,8 +63,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Player.transform.position = newPosition;
-
-        //JumpToCell(motionTarget);
     }
 
     public void GoThere()
