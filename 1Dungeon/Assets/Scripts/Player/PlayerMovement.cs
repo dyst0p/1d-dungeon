@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Direction { There, LeftWall, Back, RightWall };
+
 public class PlayerMovement : MonoBehaviour
 {
     public bool inMotion = false;
@@ -15,7 +17,8 @@ public class PlayerMovement : MonoBehaviour
     public CellsManager Manager;
     public PlayerController Controller;
 
-    public MotionDirection CurrentDirection = MotionDirection.There;
+    public Direction CurrentMoveDirection = Direction.There;
+    public Direction CurrentLookDirection = Direction.There;
 
     private void Update()
     {
@@ -23,110 +26,80 @@ public class PlayerMovement : MonoBehaviour
             CalculateNewPosition();
     }
 
-    //public void OnMove(Vector2 input)
-    //{
-    //    if (!inMotion)
-    //    {
-    //        if (((input.x > _inputSensitivity) && (CurrentDirection == MotionDirection.There))
-    //            || ((input.x < -_inputSensitivity) && (CurrentDirection == MotionDirection.Back)))
-    //        {
-    //            GoWhere();
-    //        }
-    //        if (((input.x > _inputSensitivity) && (CurrentDirection == MotionDirection.Back))
-    //            || ((input.x < -_inputSensitivity) && (CurrentDirection == MotionDirection.There)))
-    //        {
-    //            GoBack();
-    //        }
-    //    }
-    //}
-
-    //public void OnWalkForward()
-    //{
-    //    if (inMotion)
-    //        return;
-
-    //    if (CurrentDirection == MotionDirection.There)
-    //    {
-    //        motionTarget = Manager.GetCellByIndex(GetTargetIndex(MotionDirection.There, 1));
-    //        inMotion = true;
-    //    }
-    //    if (CurrentDirection == MotionDirection.Back)
-    //    {
-    //        motionTarget = Manager.GetCellByIndex(GetTargetIndex(MotionDirection.Back, 1));
-    //        inMotion = true;
-    //    }
-    //}
-
-    //public void OnWalkBackward()
-    //{
-    //    if (inMotion)
-    //        return;
-    //    if (CurrentDirection == MotionDirection.There)
-    //        JumpToCell(Manager.GetCellByIndex(GetTargetIndex(MotionDirection.There, -1)));
-    //    else
-    //        JumpToCell(Manager.GetCellByIndex(GetTargetIndex(MotionDirection.Back, -1)));
-    //}
-
     private void CalculateNewPosition() // need refactoring
     {
-        //Vector3 newPosition = new Vector3();
-        //_distanceCovered += Time.deltaTime * Player.WalkSpeed;
+        Vector3 newPosition = new Vector3();
+        _distanceCovered += Time.deltaTime * Player.WalkSpeed;
 
-        //if (_distanceCovered < _transitionDistance / 2)
-        //{
-        //    float relativeTime = _distanceCovered / (_transitionDistance / 2);
+        if (_distanceCovered < _transitionDistance / 2)
+        {
+            float relativeTime = _distanceCovered / (_transitionDistance / 2);
 
-        //    if (CurrentDirection == MotionDirection.There)
-        //        newPosition = Player.CurrentCell.GetPositionToThere(relativeTime);
-        //    if (CurrentDirection == MotionDirection.Back)
-        //        newPosition = Player.CurrentCell.GetPositionToBack(relativeTime);
-        //}
-        //else
-        //{
-        //    isTransitionMade = true;
-        //    Player.CurrentCell.Unit = null;
-        //    Player.CurrentCell = motionTarget;
+            if (CurrentMoveDirection == Direction.There)
+                newPosition = Player.CurrentCell.GetPositionToThere(relativeTime);
+            if (CurrentMoveDirection == Direction.Back)
+                newPosition = Player.CurrentCell.GetPositionToBack(relativeTime);
+        }
+        else
+        {
+            isTransitionMade = true;
+            Player.CurrentCell.Unit = null;
+            Player.CurrentCell = motionTarget;
 
-        //    float relativeTime = (_transitionDistance - _distanceCovered) / (_transitionDistance / 2);
+            float relativeTime = (_transitionDistance - _distanceCovered) / (_transitionDistance / 2);
 
-        //    if (CurrentDirection == MotionDirection.There)
-        //        newPosition = motionTarget.GetPositionToBack(relativeTime);
-        //    if (CurrentDirection == MotionDirection.Back)
-        //        newPosition = motionTarget.GetPositionToThere(relativeTime);
-        //}
-        //if (_distanceCovered > _transitionDistance)
-        //{
-        //    inMotion = false;
-        //    isTransitionMade = false;
-        //    newPosition = motionTarget.transform.position;
-        //    motionTarget = null;
-        //    _distanceCovered = 0;
-        //}
+            if (CurrentMoveDirection == Direction.There)
+                newPosition = motionTarget.GetPositionToBack(relativeTime);
+            if (CurrentMoveDirection == Direction.Back)
+                newPosition = motionTarget.GetPositionToThere(relativeTime);
+        }
+        if (_distanceCovered > _transitionDistance)
+        {
+            inMotion = false;
+            isTransitionMade = false;
+            newPosition = motionTarget.transform.position;
+            motionTarget = null;
+            _distanceCovered = 0;
+        }
 
-        //Player.transform.position = newPosition;
+        Player.transform.position = newPosition;
 
-        JumpToCell(motionTarget);
+        //JumpToCell(motionTarget);
     }
 
-    public void GoWhere()
+    public void GoThere()
     {
-        motionTarget = Manager.GetCellByIndex(GetTargetIndex(MotionDirection.There, 1));
+        int motionIndex = GetTargetIndex(Direction.There, 1);
+        if (motionIndex == Player.CurrentCell.Index)
+            return;
+
+        motionTarget = Manager.GetCellByIndex(motionIndex);
         inMotion = true;
+        CurrentMoveDirection = Direction.There;
+
+        Debug.Log("Go There");
     }
 
     public void GoBack()
     {
-        motionTarget = Manager.GetCellByIndex(GetTargetIndex(MotionDirection.Back, 1));
+        int motionIndex = GetTargetIndex(Direction.Back, 1);
+        if (motionIndex == Player.CurrentCell.Index)
+            return;
+
+        motionTarget = Manager.GetCellByIndex(motionIndex);
         inMotion = true;
+        CurrentMoveDirection = Direction.Back;
+
+        Debug.Log("Go Back");
     }
 
-    private int GetTargetIndex(MotionDirection direction, int shift)
+    private int GetTargetIndex(Direction direction, int shift)
     {
         int currentIndex = Player.CurrentCell.Index;
-        if ((direction != MotionDirection.There) && (direction != MotionDirection.Back))
+        if ((direction != Direction.There) && (direction != Direction.Back))
             return currentIndex;
 
-        int finalShift = (direction == MotionDirection.There) ? shift : -shift;
+        int finalShift = (direction == Direction.There) ? shift : -shift;
         int targetIndex = Mathf.Clamp(currentIndex + finalShift, 0, Manager.NumberOfCells - 1);
         return targetIndex;
     }

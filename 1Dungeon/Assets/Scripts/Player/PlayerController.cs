@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public enum MotionDirection { There, LeftWall, Back, RightWall };
-
 public class PlayerController : MonoBehaviour
 {
     public bool inMotion = false;
@@ -18,7 +16,7 @@ public class PlayerController : MonoBehaviour
     public CellsManager Manager;
     public PlayerMovement Mover;
 
-    public MotionDirection CurrentDirection = MotionDirection.There;
+    public Direction CurrentDirection = Direction.There;
 
     [SerializeField] private float _inputSensitivity;
 
@@ -32,10 +30,21 @@ public class PlayerController : MonoBehaviour
     {
         if (!Mover.inMotion)
         {
-            if (Mover.CurrentDirection == MotionDirection.There)
-                Mover.GoWhere();
-            if (Mover.CurrentDirection == MotionDirection.Back)
+            if (Mover.CurrentLookDirection == Direction.There)
+                Mover.GoThere();
+            if (Mover.CurrentLookDirection == Direction.Back)
                 Mover.GoBack();
+        }
+    }
+
+    public void OnGoBackward()
+    {
+        if (!Mover.inMotion)
+        {
+            if (Mover.CurrentLookDirection == Direction.There)
+                Mover.GoBack();
+            if (Mover.CurrentLookDirection == Direction.Back)
+                Mover.GoThere();
         }
     }
 
@@ -43,13 +52,13 @@ public class PlayerController : MonoBehaviour
     //{
     //    if (!inMotion)
     //    {
-    //        if (((input.x > _inputSensitivity) && (CurrentDirection == MotionDirection.There))
-    //            || ((input.x < -_inputSensitivity) && (CurrentDirection == MotionDirection.Back)))
+    //        if (((input.x > _inputSensitivity) && (CurrentDirection == Direction.There))
+    //            || ((input.x < -_inputSensitivity) && (CurrentDirection == Direction.Back)))
     //        {
     //            GoWhere();
     //        }
-    //        if (((input.x > _inputSensitivity) && (CurrentDirection == MotionDirection.Back))
-    //            || ((input.x < -_inputSensitivity) && (CurrentDirection == MotionDirection.There)))
+    //        if (((input.x > _inputSensitivity) && (CurrentDirection == Direction.Back))
+    //            || ((input.x < -_inputSensitivity) && (CurrentDirection == Direction.There)))
     //        {
     //            GoBack();
     //        }
@@ -61,14 +70,14 @@ public class PlayerController : MonoBehaviour
     //    if (Mover.inMotion)
     //        return;
 
-    //    if (Mover.CurrentDirection == MotionDirection.There)
+    //    if (Mover.CurrentDirection == Direction.There)
     //    {
-    //        motionTarget = Manager.GetCellByIndex(GetTargetIndex(MotionDirection.There, 1));
+    //        motionTarget = Manager.GetCellByIndex(GetTargetIndex(Direction.There, 1));
     //        inMotion = true;
     //    }
-    //    if (CurrentDirection == MotionDirection.Back)
+    //    if (CurrentDirection == Direction.Back)
     //    {
-    //        motionTarget = Manager.GetCellByIndex(GetTargetIndex(MotionDirection.Back, 1));
+    //        motionTarget = Manager.GetCellByIndex(GetTargetIndex(Direction.Back, 1));
     //        inMotion = true;
     //    }
     //}
@@ -77,10 +86,10 @@ public class PlayerController : MonoBehaviour
     //{
     //    if (inMotion)
     //        return;
-    //    if (CurrentDirection == MotionDirection.There)
-    //        JumpToCell(Manager.GetCellByIndex(GetTargetIndex(MotionDirection.There, -1)));
+    //    if (CurrentDirection == Direction.There)
+    //        JumpToCell(Manager.GetCellByIndex(GetTargetIndex(Direction.There, -1)));
     //    else
-    //        JumpToCell(Manager.GetCellByIndex(GetTargetIndex(MotionDirection.Back, -1)));
+    //        JumpToCell(Manager.GetCellByIndex(GetTargetIndex(Direction.Back, -1)));
     //}
 
     //private void CalculateNewPosition() // need refactoring
@@ -92,9 +101,9 @@ public class PlayerController : MonoBehaviour
     //    {
     //        float relativeTime = _distanceCovered / (_transitionDistance / 2);
 
-    //        if (CurrentDirection == MotionDirection.There)
+    //        if (CurrentDirection == Direction.There)
     //            newPosition = Player.CurrentCell.GetPositionToThere(relativeTime);
-    //        if (CurrentDirection == MotionDirection.Back)
+    //        if (CurrentDirection == Direction.Back)
     //            newPosition = Player.CurrentCell.GetPositionToBack(relativeTime);
     //    }
     //    else
@@ -105,9 +114,9 @@ public class PlayerController : MonoBehaviour
 
     //        float relativeTime = (_transitionDistance - _distanceCovered) / (_transitionDistance / 2);
 
-    //        if (CurrentDirection == MotionDirection.There)
+    //        if (CurrentDirection == Direction.There)
     //            newPosition = motionTarget.GetPositionToBack(relativeTime);
-    //        if (CurrentDirection == MotionDirection.Back)
+    //        if (CurrentDirection == Direction.Back)
     //            newPosition = motionTarget.GetPositionToThere(relativeTime);
     //    }
     //    if (_distanceCovered > _transitionDistance)
@@ -124,23 +133,23 @@ public class PlayerController : MonoBehaviour
 
     //private void GoWhere()
     //{
-    //    motionTarget = Manager.GetCellByIndex(GetTargetIndex(MotionDirection.There, 1));
+    //    motionTarget = Manager.GetCellByIndex(GetTargetIndex(Direction.There, 1));
     //    inMotion = true;
     //}
 
     //private void GoBack()
     //{
-    //    motionTarget = Manager.GetCellByIndex(GetTargetIndex(MotionDirection.Back, 1));
+    //    motionTarget = Manager.GetCellByIndex(GetTargetIndex(Direction.Back, 1));
     //    inMotion = true;
     //}
 
-    //private int GetTargetIndex(MotionDirection direction, int shift)
+    //private int GetTargetIndex(Direction direction, int shift)
     //{
     //    Debug.Log(Player);
     //    Debug.Log(Player.CurrentCell);
     //    Debug.Log(Player.CurrentCell.Index);
     //    int currentIndex = Player.CurrentCell.Index;
-    //    int finalShift = (direction == MotionDirection.There) ? shift : -shift;
+    //    int finalShift = (direction == Direction.There) ? shift : -shift;
     //    int targetIndex = Mathf.Clamp(currentIndex + finalShift, 0, Manager.NumberOfCells - 1);
     //    return targetIndex;
     //}
