@@ -5,48 +5,51 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public bool inMotion = false;
-    public bool isTransitionMade = false;
-    public BaseCell motionTarget;
-    public const float _transitionDistance = 2;
-    [SerializeField] private float _distanceCovered;
-
+    public float zInput;
+    public float xInput;
 
     public PlayerData Player;
     public CellsManager Manager;
     public PlayerMovement Mover;
 
-    public Direction CurrentDirection = Direction.There;
-
     [SerializeField] private float _inputSensitivity;
 
-    //private void Update()
-    //{
-    //    if (inMotion)
-    //        CalculateNewPosition();
-    //}
-
-    public void OnGoForward()
+    private void Update()
     {
         if (!Mover.inMotion)
         {
-            if (Mover.CurrentLookDirection == Direction.There)
-                Mover.GoThere();
-            if (Mover.CurrentLookDirection == Direction.Back)
-                Mover.GoBack();
+            if (zInput > _inputSensitivity)
+            {
+                if (Mover.CurrentLookDirection == Direction.There)
+                    Mover.GoThere();
+                if (Mover.CurrentLookDirection == Direction.Back)
+                    Mover.GoBack();
+            }
+            if (zInput < -_inputSensitivity)
+            {
+                if (Mover.CurrentLookDirection == Direction.Back)
+                    Mover.GoThere();
+                if (Mover.CurrentLookDirection == Direction.There)
+                    Mover.GoBack();
+            }
         }
-    }
 
-    public void OnGoBackward()
-    {
-        if (!Mover.inMotion)
+        if (!Mover.inRotation)
         {
-            if (Mover.CurrentLookDirection == Direction.There)
-                Mover.GoBack();
-            if (Mover.CurrentLookDirection == Direction.Back)
-                Mover.GoThere();
+            if (xInput > _inputSensitivity)
+                Mover.RotateClockwise();
+            if (xInput < -_inputSensitivity)
+                Mover.RotateÑounterclockwise();
         }
     }
 
+    public void OnGoForward(InputAction.CallbackContext context)
+    {
+        zInput = context.ReadValue<float>();
+    }
 
+    public void OnRotateClockwise(InputAction.CallbackContext context)
+    {
+        xInput = context.ReadValue<float>();
+    }
 }

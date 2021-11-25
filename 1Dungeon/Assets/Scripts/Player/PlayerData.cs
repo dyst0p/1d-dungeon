@@ -17,7 +17,7 @@ public class PlayerData : MonoBehaviour
         }
     }
 
-    [SerializeField] private float _walkSpeed;
+    [SerializeField] private float _walkSpeed; // 4 is pretty good
     public float WalkSpeed
     {
         get
@@ -27,6 +27,19 @@ public class PlayerData : MonoBehaviour
         set
         {
             _walkSpeed = value;
+        }
+    }
+    
+    [SerializeField] private float _rotateSpeed; // 720 is good for quick turn-around
+    public float RotateSpeed
+    {
+        get
+        {
+            return _rotateSpeed;
+        }
+        set
+        {
+            _rotateSpeed = value;
         }
     }
 }

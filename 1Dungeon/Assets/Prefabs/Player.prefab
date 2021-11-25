@@ -45,15 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e980ddbf7df873847b30d25cfcfb396b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inMotion: 0
-  isTransitionMade: 0
-  motionTarget: {fileID: 0}
-  _distanceCovered: 0
+  zInput: 0
+  xInput: 0
   Player: {fileID: 2092080659}
   Manager: {fileID: 0}
   Mover: {fileID: 8760079597772012340}
-  CurrentDirection: 0
-  _inputSensitivity: 0.75
+  _inputSensitivity: 0.5
 --- !u!114 &7531598852611850440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,11 +78,15 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 33072493-5a1f-49fd-886c-c301ada882d4
+    m_ActionName: Player/Look[/XInputControllerWindows/rightStick,/Mouse/delta]
+  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7531598852611850439}
-        m_TargetAssemblyTypeName: PlayerMovementController, Assembly-CSharp
-        m_MethodName: OnWalkBackward
-        m_Mode: 1
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnGoForward
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -94,24 +95,24 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 43df3211-4b60-4fba-b7e5-d1428d221471
-    m_ActionName: Player/Move[/XInputControllerWindows/leftStick,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 33072493-5a1f-49fd-886c-c301ada882d4
-    m_ActionName: Player/Look[/XInputControllerWindows/rightStick,/Mouse/delta]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: a6a388c5-df8c-40b1-bc80-1e1fc74f1f91
-    m_ActionName: Player/Fire[/XInputControllerWindows/rightTrigger,/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: 64b76e75-5355-4fe7-bec7-b33f2cbcecf9
     m_ActionName: Player/WalkForward[/XInputControllerWindows/dpad/up,/Keyboard/w]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: a0979181-5c8f-4e7e-ae39-4515a3ff2bfb
-    m_ActionName: Player/WalkBackward[/XInputControllerWindows/dpad/down,/Keyboard/s]
+      m_Calls:
+      - m_Target: {fileID: 7531598852611850439}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnRotateClockwise
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 523774ad-a07d-4fde-9b85-f1b5112dade3
+    m_ActionName: Gameplay/TurnLeft[/XInputControllerWindows/leftStick/left,/Keyboard/a]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
@@ -194,13 +195,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inMotion: 0
+  inRotation: 0
   isTransitionMade: 0
   motionTarget: {fileID: 0}
   _distanceCovered: 0
+  CurrentMoveDirection: 1
   Player: {fileID: 2092080659}
   Manager: {fileID: 0}
   Controller: {fileID: 7531598852611850439}
-  CurrentDirection: 0
+  CurrentLookDirection: 1
+  TargetLookDirection: 1
+  _angleRest: 90
 --- !u!1 &7395533961420033465
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,6 +256,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentCell: {fileID: 0}
   _walkSpeed: 1
+  _rotateSpeed: 90
 --- !u!1 &7531598852384560386
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,10 +301,10 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0.122641504, b: 0.11067167, a: 0}
+  m_BackGroundColor: {r: 0.09433961, g: 0.09433961, b: 0.09433961, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
-  m_FOVAxisMode: 0
+  m_FOVAxisMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
   m_FocalLength: 50
@@ -309,8 +315,8 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 80
+  far clip plane: 100
+  field of view: 51.242825
   orthographic: 0
   orthographic size: 5
   m_Depth: -1

@@ -2,28 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Direction { There, LeftWall, Back, RightWall };
+public enum Direction { Default, There, LeftWall, Back, RightWall };
 
 public class PlayerMovement : MonoBehaviour
 {
     public bool inMotion = false;
+    public bool inRotation = false;
     public bool isTransitionMade = false;
-    public BaseCell motionTarget;
-    public const float _transitionDistance = 2;
-    [SerializeField] private float _distanceCovered;
 
+    public BaseCell motionTarget;
+    public const float TransitionDistance = 2;
+    [SerializeField] private float _distanceCovered;
+    public Direction CurrentMoveDirection = Direction.There;
 
     public PlayerData Player;
     public CellsManager Manager;
     public PlayerController Controller;
 
-    public Direction CurrentMoveDirection = Direction.There;
     public Direction CurrentLookDirection = Direction.There;
+    public Direction TargetLookDirection = Direction.There;
+    public const float RightAngle = 90;
+    [SerializeField] private float _angleRest = RightAngle;
 
     private void Update()
     {
         if (inMotion)
             CalculateNewPosition();
+        if (inRotation)
+            CalculateNewRotation();
     }
 
     private void CalculateNewPosition() // need refactoring
@@ -31,9 +37,9 @@ public class PlayerMovement : MonoBehaviour
         Vector3 newPosition = new Vector3();
         _distanceCovered += Time.deltaTime * Player.WalkSpeed;
 
-        if (_distanceCovered < _transitionDistance / 2)
+        if (_distanceCovered < TransitionDistance / 2)
         {
-            float relativeTime = _distanceCovered / (_transitionDistance / 2);
+            float relativeTime = _distanceCovered / (TransitionDistance / 2);
 
             if (CurrentMoveDirection == Direction.There)
                 newPosition = Player.CurrentCell.GetPositionToThere(relativeTime);
@@ -46,14 +52,14 @@ public class PlayerMovement : MonoBehaviour
             Player.CurrentCell.Unit = null;
             Player.CurrentCell = motionTarget;
 
-            float relativeTime = (_transitionDistance - _distanceCovered) / (_transitionDistance / 2);
+            float relativeTime = (TransitionDistance - _distanceCovered) / (TransitionDistance / 2);
 
             if (CurrentMoveDirection == Direction.There)
                 newPosition = motionTarget.GetPositionToBack(relativeTime);
             if (CurrentMoveDirection == Direction.Back)
                 newPosition = motionTarget.GetPositionToThere(relativeTime);
         }
-        if (_distanceCovered > _transitionDistance)
+        if (_distanceCovered > TransitionDistance)
         {
             inMotion = false;
             isTransitionMade = false;
@@ -63,6 +69,27 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Player.transform.position = newPosition;
+    }
+
+    private void CalculateNewRotation()
+    {
+        float angleDelta = Time.deltaTime * Player.RotateSpeed;
+        _angleRest -= angleDelta;
+
+        if (_angleRest > 0)
+        {
+            float relativeTime = angleDelta / (_angleRest + angleDelta);
+
+            Player.transform.forward = Vector3.Lerp(Player.transform.forward,
+                GetForwardVectorByDirection(TargetLookDirection), relativeTime);
+        }
+        else
+        {
+            inRotation = false;
+            _angleRest = RightAngle;
+            CurrentLookDirection = TargetLookDirection;
+            Player.transform.forward = GetForwardVectorByDirection(CurrentLookDirection);
+        }
     }
 
     public void GoThere()
@@ -110,4 +137,57 @@ public class PlayerMovement : MonoBehaviour
         Player.CurrentCell = targetCell;
         inMotion = false;
     }
+
+    public void RotateClockwise()
+    {
+        TargetLookDirection = GetRotatedDirection(CurrentLookDirection, true);
+        inRotation = true;
+
+        Debug.Log("Rotate Clockwise");
+        Debug.Log(TargetLookDirection);
+    }
+    
+    public void RotateÑounterclockwise()
+    {
+        TargetLookDirection = GetRotatedDirection(CurrentLookDirection, false);
+        inRotation = true;
+
+        Debug.Log("Rotate Counterclockwise");
+        Debug.Log(TargetLookDirection);
+    }
+
+    private Direction GetRotatedDirection(Direction currentDirection, bool clockwise)
+    {
+        if (clockwise)
+        {
+            return currentDirection switch
+            {
+                Direction.There     => Direction.RightWall,
+                Direction.RightWall => Direction.Back,
+                Direction.Back      => Direction.LeftWall,
+                Direction.LeftWall  => Direction.There,
+                _                   => Direction.Default
+            };
+        }
+        else
+        {
+            return currentDirection switch
+            {
+                Direction.There     => Direction.LeftWall,
+                Direction.LeftWall  => Direction.Back,
+                Direction.Back      => Direction.RightWall,
+                Direction.RightWall => Direction.There,
+                _                   => Direction.Default
+            };
+        }
+    }
+
+    private Vector3 GetForwardVectorByDirection(Direction dir) => dir switch
+    {
+        Direction.There     => Vector3.forward,
+        Direction.LeftWall  => Vector3.left,
+        Direction.Back      => Vector3.back,
+        Direction.RightWall => Vector3.right,
+        _                   => Vector3.zero
+    };
 }

@@ -1286,6 +1286,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2092080659, guid: 59a2cb30565f4db4a9d10f61b5b4a02c, type: 3}
+      propertyPath: _walkSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2092080659, guid: 59a2cb30565f4db4a9d10f61b5b4a02c, type: 3}
       propertyPath: _currentCell
       value: 
       objectReference: {fileID: 3008980890856439816}
@@ -1299,11 +1303,6 @@ PrefabInstance:
       propertyPath: Manager
       value: 
       objectReference: {fileID: 1911955007}
-    - target: {fileID: 7531598852611850440, guid: 59a2cb30565f4db4a9d10f61b5b4a02c,
-        type: 3}
-      propertyPath: m_NotificationBehavior
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7795792193992710593, guid: 59a2cb30565f4db4a9d10f61b5b4a02c,
         type: 3}
       propertyPath: m_RootOrder
