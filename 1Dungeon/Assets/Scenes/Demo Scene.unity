@@ -1301,18 +1301,8 @@ PrefabInstance:
       objectReference: {fileID: 1911955007}
     - target: {fileID: 7531598852611850440, guid: 59a2cb30565f4db4a9d10f61b5b4a02c,
         type: 3}
-      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7531598852611850440, guid: 59a2cb30565f4db4a9d10f61b5b4a02c,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnWalkBackward
-      objectReference: {fileID: 0}
-    - target: {fileID: 7531598852611850440, guid: 59a2cb30565f4db4a9d10f61b5b4a02c,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlayerMovementController, Assembly-CSharp
+      propertyPath: m_NotificationBehavior
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7795792193992710593, guid: 59a2cb30565f4db4a9d10f61b5b4a02c,
         type: 3}
@@ -1369,5 +1359,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8760079597772012340, guid: 59a2cb30565f4db4a9d10f61b5b4a02c,
+        type: 3}
+      propertyPath: Manager
+      value: 
+      objectReference: {fileID: 1911955007}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59a2cb30565f4db4a9d10f61b5b4a02c, type: 3}

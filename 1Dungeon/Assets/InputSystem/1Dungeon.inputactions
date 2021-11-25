@@ -6,10 +6,19 @@
             "id": "fdb74991-2de6-4be8-92cd-9919b54faa6e",
             "actions": [
                 {
-                    "name": "Move",
-                    "type": "Value",
-                    "id": "43df3211-4b60-4fba-b7e5-d1428d221471",
-                    "expectedControlType": "Vector2",
+                    "name": "GoForward",
+                    "type": "Button",
+                    "id": "64b76e75-5355-4fe7-bec7-b33f2cbcecf9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "GoBackward",
+                    "type": "Button",
+                    "id": "a0979181-5c8f-4e7e-ae39-4515a3ff2bfb",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -33,25 +42,82 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "WalkForward",
+                    "name": "Move",
                     "type": "Value",
-                    "id": "64b76e75-5355-4fe7-bec7-b33f2cbcecf9",
-                    "expectedControlType": "Double",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "WalkBackward",
-                    "type": "Value",
-                    "id": "a0979181-5c8f-4e7e-ae39-4515a3ff2bfb",
-                    "expectedControlType": "Double",
+                    "id": "43df3211-4b60-4fba-b7e5-d1428d221471",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 }
             ],
             "bindings": [
+                {
+                    "name": "",
+                    "id": "c1f7a91b-d0fd-4a62-997e-7fb9b69bf235",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8c8e490b-c610-4785-884f-f04217b23ca4",
+                    "path": "<Pointer>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "143bb1cd-cc10-4eca-a2f0-a3664166fe91",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "05f6913d-c316-48b2-a6bb-e225f14c7960",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6b5ef7ff-7acb-42c3-adbd-a6691f287821",
+                    "path": "<Gamepad>/leftStick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "GoForward",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "67bd0014-af12-47de-b9bf-4c4579c892f4",
+                    "path": "<Keyboard>/#(W)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "GoForward",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
                 {
                     "name": "",
                     "id": "978bfe49-cc26-4a3d-ab7b-7d7a29327403",
@@ -164,78 +230,12 @@
                 },
                 {
                     "name": "",
-                    "id": "c1f7a91b-d0fd-4a62-997e-7fb9b69bf235",
-                    "path": "<Gamepad>/rightStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8c8e490b-c610-4785-884f-f04217b23ca4",
-                    "path": "<Pointer>/delta",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "143bb1cd-cc10-4eca-a2f0-a3664166fe91",
-                    "path": "<Gamepad>/rightTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Fire",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "05f6913d-c316-48b2-a6bb-e225f14c7960",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Fire",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "6b5ef7ff-7acb-42c3-adbd-a6691f287821",
-                    "path": "<Gamepad>/dpad/up",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "WalkForward",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "67bd0014-af12-47de-b9bf-4c4579c892f4",
-                    "path": "<Keyboard>/#(W)",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "WalkForward",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "e41a6db7-d66d-44ce-af7f-7a54823e4b9c",
-                    "path": "<Gamepad>/dpad/down",
+                    "path": "<Gamepad>/leftStick/down",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "WalkBackward",
+                    "action": "GoBackward",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -246,7 +246,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "WalkBackward",
+                    "action": "GoBackward",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
