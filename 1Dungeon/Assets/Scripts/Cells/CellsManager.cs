@@ -8,7 +8,9 @@ public class CellsManager : MonoBehaviour
 
     [SerializeField] private List<BaseCell> _cells;
 
-    public int NumberOfCells => _cells.Count;
+    public static BaseCell GetCellByIndex(int index) => Instance._cells[index];
+
+    public static int NumberOfCells => Instance._cells.Count;
 
     private void Awake()
     {
@@ -17,6 +19,4 @@ public class CellsManager : MonoBehaviour
         else
             CellsManager.Instance = this;
     }
-
-    public BaseCell GetCellByIndex(int index) => _cells[index];
 }

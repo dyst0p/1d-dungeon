@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
     public float xInput;
 
     public PlayerData Player;
-    public CellsManager Manager;
     public PlayerMovement Mover;
 
     [SerializeField] private float _inputSensitivity;

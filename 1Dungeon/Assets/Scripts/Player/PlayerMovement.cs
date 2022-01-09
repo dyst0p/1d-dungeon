@@ -17,7 +17,6 @@ public class PlayerMovement : MonoBehaviour
     public Direction CurrentMoveDirection = Direction.There;
 
     public PlayerData Player;
-    public CellsManager Manager;
     public PlayerController Controller;
 
     public Direction CurrentLookDirection = Direction.There;
@@ -100,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
         if (motionIndex == Player.CurrentCell.Index)
             return;
 
-        motionTarget = Manager.GetCellByIndex(motionIndex);
+        motionTarget = CellsManager.GetCellByIndex(motionIndex);
         inMotion = true;
         CurrentMoveDirection = Direction.There;
 
@@ -113,7 +112,7 @@ public class PlayerMovement : MonoBehaviour
         if (motionIndex == Player.CurrentCell.Index)
             return;
 
-        motionTarget = Manager.GetCellByIndex(motionIndex);
+        motionTarget = CellsManager.GetCellByIndex(motionIndex);
         inMotion = true;
         CurrentMoveDirection = Direction.Back;
 
@@ -127,7 +126,7 @@ public class PlayerMovement : MonoBehaviour
             return currentIndex;
 
         int finalShift = (direction == Direction.There) ? shift : -shift;
-        int targetIndex = Mathf.Clamp(currentIndex + finalShift, 0, Manager.NumberOfCells - 1);
+        int targetIndex = Mathf.Clamp(currentIndex + finalShift, 0, CellsManager.NumberOfCells - 1);
         return targetIndex;
     }
 
