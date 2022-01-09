@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum Direction { Default, There, LeftWall, Back, RightWall };
 
+// todo: add interface IMover
 public class PlayerMovement : MonoBehaviour
 {
     public bool inMotion = false;
@@ -66,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
             newPosition = motionTarget.transform.position;
             motionTarget = null;
             _distanceCovered = 0;
+            // todo: add unit to cell's Unit field
         }
 
         Player.transform.position = newPosition;

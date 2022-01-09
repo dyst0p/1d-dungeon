@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CellsManager : MonoBehaviour
 {
+    // todo: add singleton
     [SerializeField] private List<BaseCell> _cells;
 
     public int NumberOfCells => _cells.Count;

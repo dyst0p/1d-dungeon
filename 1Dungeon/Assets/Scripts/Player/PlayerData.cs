@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// todo: added interface IData
 public class PlayerData : MonoBehaviour
 {
     [SerializeField] private BaseCell _currentCell;

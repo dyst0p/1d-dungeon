@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+// todo: add interface IController, which will collect dependensies on Awake
 public class PlayerController : MonoBehaviour
 {
     public float zInput;
