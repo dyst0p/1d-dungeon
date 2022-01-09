@@ -4,20 +4,18 @@ using UnityEngine;
 
 public class CellsManager : MonoBehaviour
 {
-    // todo: add singleton
+    public static CellsManager Instance { get; private set; }
+
     [SerializeField] private List<BaseCell> _cells;
 
     public int NumberOfCells => _cells.Count;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        if (CellsManager.Instance != null)
+            Destroy(gameObject);
+        else
+            CellsManager.Instance = this;
     }
 
     public BaseCell GetCellByIndex(int index) => _cells[index];
