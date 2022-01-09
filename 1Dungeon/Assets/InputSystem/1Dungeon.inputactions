@@ -46,6 +46,28 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "negative",
+                    "id": "cc702c2f-d94d-4ac0-bb0e-36ae40e4998f",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "GoForward",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "62858f6d-ef75-4391-88f0-fdf6b32439fc",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "GoForward",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "Left Stick",
                     "id": "554ab645-fd58-477a-9995-71f4dfb159b3",
                     "path": "1DAxis",
@@ -74,28 +96,6 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "GoForward",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "negative",
-                    "id": "d380f00b-ec47-4e5b-bb38-5f7bd339e53a",
-                    "path": "<Keyboard>/#(S)",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "GoForward",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "c03f8a02-5bde-4647-a045-dc83d6886f07",
-                    "path": "<Keyboard>/#(W)",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
                     "action": "GoForward",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -136,7 +136,7 @@
                 {
                     "name": "negative",
                     "id": "f27fae82-1238-4605-8d64-ec14d4f87c60",
-                    "path": "<Keyboard>/#(A)",
+                    "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -147,7 +147,7 @@
                 {
                     "name": "positive",
                     "id": "3d791f3b-5251-43f8-8a2a-37ef67fe3161",
-                    "path": "<Keyboard>/#(D)",
+                    "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
