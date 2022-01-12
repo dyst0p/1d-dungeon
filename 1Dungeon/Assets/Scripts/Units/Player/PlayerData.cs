@@ -1,46 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 // todo: added interface IData
 public class PlayerData : MonoBehaviour
 {
-    [SerializeField] private BaseCell _currentCell;
+    [SerializeField] private BaseCell currentCell;
     public BaseCell CurrentCell
     {
         get
         {
-            return _currentCell;
+            return currentCell;
         }
         set
         {
-            _currentCell = value;
+            currentCell = value;
         }
     }
 
-    [SerializeField] private float _walkSpeed; // 4 is pretty good
+    [SerializeField] private float walkSpeed; // 4 is pretty good
     public float WalkSpeed
     {
         get
         {
-            return _walkSpeed;
+            return walkSpeed;
         }
         set
         {
-            _walkSpeed = value;
+            walkSpeed = value;
         }
     }
     
-    [SerializeField] private float _rotateSpeed; // 720 is good for quick turn-around
+    [SerializeField] private float rotateSpeed; // 720 is good for quick turn-around
     public float RotateSpeed
     {
         get
         {
-            return _rotateSpeed;
+            return rotateSpeed;
         }
         set
         {
-            _rotateSpeed = value;
+            rotateSpeed = value;
         }
     }
 }

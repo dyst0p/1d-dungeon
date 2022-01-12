@@ -1,107 +1,113 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public enum Direction { Default, There, LeftWall, Back, RightWall };
 
-// todo: add interface IMover
-public class PlayerMovement : MonoBehaviour
+public class WalkMover : BaseMover
 {
-    public bool inMotion = false;
-    public bool inRotation = false;
-    public bool isTransitionMade = false;
+    // todo: clean up fields
+    private bool _isTransitionMade = false;
 
     public BaseCell motionTarget;
     public const float TransitionDistance = 2;
-    [SerializeField] private float _distanceCovered;
-    public Direction CurrentMoveDirection = Direction.There;
+    [SerializeField] private float distanceCovered;
+    public Direction currentMoveDirection = Direction.There;
 
-    public PlayerData Player;
-    public PlayerController Controller;
+    public PlayerData player;
 
     public Direction CurrentLookDirection = Direction.There;
     public Direction TargetLookDirection = Direction.There;
     public const float RightAngle = 90;
-    [SerializeField] private float _angleRest = RightAngle;
+    [SerializeField] private float angleRest = RightAngle;
 
-    private void Update()
-    {
-        if (inMotion)
-            CalculateNewPosition();
-        if (inRotation)
-            CalculateNewRotation();
-    }
-
-    private void CalculateNewPosition() // need refactoring
+    protected override void CalculateNewPosition() // need refactoring
     {
         Vector3 newPosition = new Vector3();
-        _distanceCovered += Time.deltaTime * Player.WalkSpeed;
+        distanceCovered += Time.deltaTime * player.WalkSpeed;
 
-        if (_distanceCovered < TransitionDistance / 2)
+        if (distanceCovered < TransitionDistance / 2)
         {
-            float relativeTime = _distanceCovered / (TransitionDistance / 2);
+            float relativeTime = distanceCovered / (TransitionDistance / 2);
 
-            if (CurrentMoveDirection == Direction.There)
-                newPosition = Player.CurrentCell.GetPositionToThere(relativeTime);
-            if (CurrentMoveDirection == Direction.Back)
-                newPosition = Player.CurrentCell.GetPositionToBack(relativeTime);
+            if (currentMoveDirection == Direction.There)
+                newPosition = player.CurrentCell.GetPositionToThere(relativeTime);
+            if (currentMoveDirection == Direction.Back)
+                newPosition = player.CurrentCell.GetPositionToBack(relativeTime);
         }
         else
         {
-            isTransitionMade = true;
-            Player.CurrentCell.Unit = null;
-            Player.CurrentCell = motionTarget;
+            _isTransitionMade = true;
+            player.CurrentCell.Unit = null;
+            player.CurrentCell = motionTarget;
 
-            float relativeTime = (TransitionDistance - _distanceCovered) / (TransitionDistance / 2);
+            float relativeTime = (TransitionDistance - distanceCovered) / (TransitionDistance / 2);
 
-            if (CurrentMoveDirection == Direction.There)
+            if (currentMoveDirection == Direction.There)
                 newPosition = motionTarget.GetPositionToBack(relativeTime);
-            if (CurrentMoveDirection == Direction.Back)
+            if (currentMoveDirection == Direction.Back)
                 newPosition = motionTarget.GetPositionToThere(relativeTime);
         }
-        if (_distanceCovered > TransitionDistance)
+        if (distanceCovered > TransitionDistance)
         {
-            inMotion = false;
-            isTransitionMade = false;
+            InMotion = false;
+            _isTransitionMade = false;
             newPosition = motionTarget.transform.position;
             motionTarget = null;
-            _distanceCovered = 0;
+            distanceCovered = 0;
             // todo: add unit to cell's Unit field
         }
 
-        Player.transform.position = newPosition;
+        player.transform.position = newPosition;
     }
 
-    private void CalculateNewRotation()
+    protected override void CalculateNewRotation()
     {
-        float angleDelta = Time.deltaTime * Player.RotateSpeed;
-        _angleRest -= angleDelta;
+        float angleDelta = Time.deltaTime * player.RotateSpeed;
+        angleRest -= angleDelta;
 
-        if (_angleRest > 0)
+        if (angleRest > 0)
         {
-            float relativeTime = angleDelta / (_angleRest + angleDelta);
+            float relativeTime = angleDelta / (angleRest + angleDelta);
 
-            Player.transform.forward = Vector3.Lerp(Player.transform.forward,
+            player.transform.forward = Vector3.Lerp(player.transform.forward,
                 GetForwardVectorByDirection(TargetLookDirection), relativeTime);
         }
         else
         {
-            inRotation = false;
-            _angleRest = RightAngle;
+            InRotation = false;
+            angleRest = RightAngle;
             CurrentLookDirection = TargetLookDirection;
-            Player.transform.forward = GetForwardVectorByDirection(CurrentLookDirection);
+            player.transform.forward = GetForwardVectorByDirection(CurrentLookDirection);
         }
     }
 
+    public override void GoForward()
+    {
+        if (CurrentLookDirection == Direction.There)
+            GoThere();
+        if (CurrentLookDirection == Direction.Back)
+            GoBack();
+    }
+
+    public override void GoBackward()
+    {
+        if (CurrentLookDirection == Direction.Back)
+            GoThere();
+        if (CurrentLookDirection == Direction.There)
+            GoBack();
+    }
+    
     public void GoThere()
     {
         int motionIndex = GetTargetIndex(Direction.There, 1);
-        if (motionIndex == Player.CurrentCell.Index)
+        if (motionIndex == player.CurrentCell.Index)
             return;
 
         motionTarget = CellsManager.GetCellByIndex(motionIndex);
-        inMotion = true;
-        CurrentMoveDirection = Direction.There;
+        InMotion = true;
+        currentMoveDirection = Direction.There;
 
         Debug.Log("Go There");
     }
@@ -109,19 +115,19 @@ public class PlayerMovement : MonoBehaviour
     public void GoBack()
     {
         int motionIndex = GetTargetIndex(Direction.Back, 1);
-        if (motionIndex == Player.CurrentCell.Index)
+        if (motionIndex == player.CurrentCell.Index)
             return;
 
         motionTarget = CellsManager.GetCellByIndex(motionIndex);
-        inMotion = true;
-        CurrentMoveDirection = Direction.Back;
+        InMotion = true;
+        currentMoveDirection = Direction.Back;
 
         Debug.Log("Go Back");
     }
 
     private int GetTargetIndex(Direction direction, int shift)
     {
-        int currentIndex = Player.CurrentCell.Index;
+        int currentIndex = player.CurrentCell.Index;
         if ((direction != Direction.There) && (direction != Direction.Back))
             return currentIndex;
 
@@ -132,26 +138,26 @@ public class PlayerMovement : MonoBehaviour
 
     private void JumpToCell(BaseCell targetCell)
     {
-        Player.CurrentCell.Unit = null;
-        targetCell.Unit = Player.gameObject;
-        Player.transform.position = targetCell.transform.position;
-        Player.CurrentCell = targetCell;
-        inMotion = false;
+        player.CurrentCell.Unit = null;
+        targetCell.Unit = player.gameObject;
+        player.transform.position = targetCell.transform.position;
+        player.CurrentCell = targetCell;
+        InMotion = false;
     }
 
-    public void RotateClockwise()
+    public override void RotateClockwise()
     {
         TargetLookDirection = GetRotatedDirection(CurrentLookDirection, true);
-        inRotation = true;
+        InRotation = true;
 
         Debug.Log("Rotate Clockwise");
         Debug.Log(TargetLookDirection);
     }
     
-    public void Rotate—ounterclockwise()
+    public override void RotateCounterclockwise()
     {
         TargetLookDirection = GetRotatedDirection(CurrentLookDirection, false);
-        inRotation = true;
+        InRotation = true;
 
         Debug.Log("Rotate Counterclockwise");
         Debug.Log(TargetLookDirection);
