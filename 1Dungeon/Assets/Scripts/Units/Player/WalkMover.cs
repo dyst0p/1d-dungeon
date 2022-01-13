@@ -108,8 +108,6 @@ public class WalkMover : BaseMover
         motionTarget = CellsManager.GetCellByIndex(motionIndex);
         InMotion = true;
         currentMoveDirection = Direction.There;
-
-        Debug.Log("Go There");
     }
 
     public void GoBack()
@@ -121,8 +119,6 @@ public class WalkMover : BaseMover
         motionTarget = CellsManager.GetCellByIndex(motionIndex);
         InMotion = true;
         currentMoveDirection = Direction.Back;
-
-        Debug.Log("Go Back");
     }
 
     private int GetTargetIndex(Direction direction, int shift)
@@ -149,18 +145,12 @@ public class WalkMover : BaseMover
     {
         TargetLookDirection = GetRotatedDirection(CurrentLookDirection, true);
         InRotation = true;
-
-        Debug.Log("Rotate Clockwise");
-        Debug.Log(TargetLookDirection);
     }
     
     public override void RotateCounterclockwise()
     {
         TargetLookDirection = GetRotatedDirection(CurrentLookDirection, false);
         InRotation = true;
-
-        Debug.Log("Rotate Counterclockwise");
-        Debug.Log(TargetLookDirection);
     }
 
     private Direction GetRotatedDirection(Direction currentDirection, bool clockwise)
@@ -188,7 +178,8 @@ public class WalkMover : BaseMover
             };
         }
     }
-
+    
+    // todo: add condition for turned cells
     private Vector3 GetForwardVectorByDirection(Direction dir) => dir switch
     {
         Direction.There     => Vector3.forward,
