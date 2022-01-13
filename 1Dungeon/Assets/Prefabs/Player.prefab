@@ -162,7 +162,7 @@ MonoBehaviour:
   motionTarget: {fileID: 0}
   distanceCovered: 0
   currentMoveDirection: 1
-  player: {fileID: 0}
+  player: {fileID: 2540913246097673876}
   CurrentLookDirection: 1
   TargetLookDirection: 1
   angleRest: 90

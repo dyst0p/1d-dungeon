@@ -41,6 +41,7 @@ public class WalkMover : BaseMover
             _isTransitionMade = true;
             player.CurrentCell.Unit = null;
             player.CurrentCell = motionTarget;
+            player.CurrentCell.Unit = player.gameObject;
 
             float relativeTime = (TransitionDistance - distanceCovered) / (TransitionDistance / 2);
 
