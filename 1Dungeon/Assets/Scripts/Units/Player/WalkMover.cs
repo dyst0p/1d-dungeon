@@ -103,8 +103,13 @@ public class WalkMover : BaseMover
         int motionIndex = GetTargetIndex(Direction.There, 1);
         if (motionIndex == _unit.currentCell.Index)
             return;
+        
+        var target = CellsManager.GetCellByIndex(motionIndex);
 
-        motionTarget = CellsManager.GetCellByIndex(motionIndex);
+        if (target.Unit != null)
+            return;
+        
+        motionTarget = target;
         InMotion = true;
         currentMoveDirection = Direction.There;
     }
