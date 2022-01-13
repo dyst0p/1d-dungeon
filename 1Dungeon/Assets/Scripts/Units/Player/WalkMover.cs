@@ -15,8 +15,6 @@ public class WalkMover : BaseMover
     [SerializeField] private float distanceCovered;
     public Direction currentMoveDirection = Direction.There;
 
-    public PlayerData player;
-
     public Direction CurrentLookDirection = Direction.There;
     public Direction TargetLookDirection = Direction.There;
     public const float RightAngle = 90;
@@ -25,23 +23,23 @@ public class WalkMover : BaseMover
     protected override void CalculateNewPosition() // need refactoring
     {
         Vector3 newPosition = new Vector3();
-        distanceCovered += Time.deltaTime * player.WalkSpeed;
+        distanceCovered += Time.deltaTime * _unit.walkSpeed;
 
         if (distanceCovered < TransitionDistance / 2)
         {
             float relativeTime = distanceCovered / (TransitionDistance / 2);
 
             if (currentMoveDirection == Direction.There)
-                newPosition = player.CurrentCell.GetPositionToThere(relativeTime);
+                newPosition = _unit.currentCell.GetPositionToThere(relativeTime);
             if (currentMoveDirection == Direction.Back)
-                newPosition = player.CurrentCell.GetPositionToBack(relativeTime);
+                newPosition = _unit.currentCell.GetPositionToBack(relativeTime);
         }
         else
         {
             _isTransitionMade = true;
-            player.CurrentCell.Unit = null;
-            player.CurrentCell = motionTarget;
-            player.CurrentCell.Unit = player.gameObject;
+            _unit.currentCell.Unit = null;
+            _unit.currentCell = motionTarget;
+            _unit.currentCell.Unit = _unit.transform.gameObject;
 
             float relativeTime = (TransitionDistance - distanceCovered) / (TransitionDistance / 2);
 
@@ -60,19 +58,19 @@ public class WalkMover : BaseMover
             // todo: add unit to cell's Unit field
         }
 
-        player.transform.position = newPosition;
+        _unit.transform.position = newPosition;
     }
 
     protected override void CalculateNewRotation()
     {
-        float angleDelta = Time.deltaTime * player.RotateSpeed;
+        float angleDelta = Time.deltaTime * _unit.rotateSpeed;
         angleRest -= angleDelta;
 
         if (angleRest > 0)
         {
             float relativeTime = angleDelta / (angleRest + angleDelta);
 
-            player.transform.forward = Vector3.Lerp(player.transform.forward,
+            _unit.transform.forward = Vector3.Lerp(_unit.transform.forward,
                 GetForwardVectorByDirection(TargetLookDirection), relativeTime);
         }
         else
@@ -80,7 +78,7 @@ public class WalkMover : BaseMover
             InRotation = false;
             angleRest = RightAngle;
             CurrentLookDirection = TargetLookDirection;
-            player.transform.forward = GetForwardVectorByDirection(CurrentLookDirection);
+            _unit.transform.forward = GetForwardVectorByDirection(CurrentLookDirection);
         }
     }
 
@@ -103,7 +101,7 @@ public class WalkMover : BaseMover
     public void GoThere()
     {
         int motionIndex = GetTargetIndex(Direction.There, 1);
-        if (motionIndex == player.CurrentCell.Index)
+        if (motionIndex == _unit.currentCell.Index)
             return;
 
         motionTarget = CellsManager.GetCellByIndex(motionIndex);
@@ -114,7 +112,7 @@ public class WalkMover : BaseMover
     public void GoBack()
     {
         int motionIndex = GetTargetIndex(Direction.Back, 1);
-        if (motionIndex == player.CurrentCell.Index)
+        if (motionIndex == _unit.currentCell.Index)
             return;
 
         motionTarget = CellsManager.GetCellByIndex(motionIndex);
@@ -124,7 +122,7 @@ public class WalkMover : BaseMover
 
     private int GetTargetIndex(Direction direction, int shift)
     {
-        int currentIndex = player.CurrentCell.Index;
+        int currentIndex = _unit.currentCell.Index;
         if ((direction != Direction.There) && (direction != Direction.Back))
             return currentIndex;
 
@@ -135,10 +133,10 @@ public class WalkMover : BaseMover
 
     private void JumpToCell(BaseCell targetCell)
     {
-        player.CurrentCell.Unit = null;
-        targetCell.Unit = player.gameObject;
-        player.transform.position = targetCell.transform.position;
-        player.CurrentCell = targetCell;
+        _unit.currentCell.Unit = null;
+        targetCell.Unit = _unit.transform.gameObject;
+        _unit.transform.position = targetCell.transform.position;
+        _unit.currentCell = targetCell;
         InMotion = false;
     }
 

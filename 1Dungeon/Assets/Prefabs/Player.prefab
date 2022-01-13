@@ -95,6 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 2540913246097673876}
+  _playerView: {fileID: 0}
   _offset: {x: 0, y: 0}
 --- !u!1 &2796823971526769523
 GameObject:
@@ -362,6 +363,7 @@ MonoBehaviour:
   currentCell: {fileID: 0}
   walkSpeed: 3
   rotateSpeed: 120
+  view: {fileID: 1713160211880866250}
 --- !u!1 &7531598852384560386
 GameObject:
   m_ObjectHideFlags: 0

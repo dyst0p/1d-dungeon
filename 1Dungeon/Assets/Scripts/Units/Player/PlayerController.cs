@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,32 +6,37 @@ using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
 //todo: add interface IController, which will collect dependensies on Awake
-public class PlayerController : MonoBehaviour
+public class PlayerController : BasePerformer
 {
     public float zInput;
     public float xInput;
 
-    public PlayerData player;
-    public BaseMover mover;
+    private PlayerData _player => _unit as PlayerData;
+    private BaseMover _mover;
 
     [SerializeField] private float inputSensitivity;
 
+    private void Start()
+    {
+        _mover = transform.parent.GetComponentInChildren<BaseMover>();
+    }
+
     private void Update()
     {
-        if (!mover.InMotion)
+        if (!_mover.InMotion)
         {
             if (zInput > inputSensitivity)
-                mover.GoForward();
+                _mover.GoForward();
             if (zInput < -inputSensitivity)
-                mover.GoBackward();
+                _mover.GoBackward();
         }
 
-        if (!mover.InRotation)
+        if (!_mover.InRotation)
         {
             if (xInput > inputSensitivity)
-                mover.RotateClockwise();
+                _mover.RotateClockwise();
             if (xInput < -inputSensitivity)
-                mover.RotateCounterclockwise();
+                _mover.RotateCounterclockwise();
         }
     }
 

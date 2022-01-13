@@ -4,15 +4,13 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class LookDirectionController : MonoBehaviour
+public class LookDirectionController : BasePerformer
 {
-    [SerializeField] private PlayerData _player;
-    [SerializeField] private Transform _playerView;
+    private PlayerData _player => _unit as PlayerData;
+    private Transform _playerView;
     [SerializeField] private readonly float _maxOffset = 1;
 
-    [SerializeField] private Vector2 _offset;
-
-    private Transform _playerTransform;
+    private Vector2 _offset;
 
     public void ShiftFocalPoint(Vector2 shift)
     {
@@ -21,7 +19,7 @@ public class LookDirectionController : MonoBehaviour
 
     private void Start()
     {
-        _playerTransform = _player.transform;
+        _playerView = _player.view;
     }
 
     void Update()

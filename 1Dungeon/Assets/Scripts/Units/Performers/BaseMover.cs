@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseMover : MonoBehaviour
+public abstract class BaseMover : BasePerformer
 {
     public bool InMotion { get; protected set; }
     public bool InRotation { get; protected set; }
