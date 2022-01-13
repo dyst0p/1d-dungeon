@@ -8,13 +8,12 @@ using UnityEngine.Serialization;
 //todo: add interface IController, which will collect dependensies on Awake
 public class PlayerController : BasePerformer
 {
-    public float zInput;
-    public float xInput;
+    [SerializeField] private float inputSensitivity;
+    private float zInput;
+    private float xInput;
 
     private PlayerData _player => _unit as PlayerData;
     private BaseMover _mover;
-
-    [SerializeField] private float inputSensitivity;
 
     private void Start()
     {

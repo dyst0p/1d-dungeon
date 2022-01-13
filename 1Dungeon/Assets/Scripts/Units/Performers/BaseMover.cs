@@ -4,6 +4,19 @@ using UnityEngine;
 
 public abstract class BaseMover : BasePerformer
 {
+    protected const float TransitionDistance = 2;
+    protected const float RightAngle = 90;
+
+    protected BaseCell motionTarget;
+
+    protected bool _isTransitionMade = false; // for canceling move
+    protected float distanceCovered;
+    protected float angleRest = RightAngle;
+
+    protected Direction currentMoveDirection = Direction.There;
+    public Direction CurrentLookDirection = Direction.There;
+    protected Direction TargetLookDirection = Direction.There;
+    
     public bool InMotion { get; protected set; }
     public bool InRotation { get; protected set; }
 

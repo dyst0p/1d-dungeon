@@ -7,20 +7,8 @@ public enum Direction { Default, There, LeftWall, Back, RightWall };
 
 public class WalkMover : BaseMover
 {
-    // todo: clean up fields
-    private bool _isTransitionMade = false;
 
-    public BaseCell motionTarget;
-    public const float TransitionDistance = 2;
-    [SerializeField] private float distanceCovered;
-    public Direction currentMoveDirection = Direction.There;
-
-    public Direction CurrentLookDirection = Direction.There;
-    public Direction TargetLookDirection = Direction.There;
-    public const float RightAngle = 90;
-    [SerializeField] private float angleRest = RightAngle;
-
-    protected override void CalculateNewPosition() // need refactoring
+    protected override void CalculateNewPosition() // todo: refactoring
     {
         Vector3 newPosition = new Vector3();
         distanceCovered += Time.deltaTime * _unit.walkSpeed;
@@ -55,7 +43,6 @@ public class WalkMover : BaseMover
             newPosition = motionTarget.transform.position;
             motionTarget = null;
             distanceCovered = 0;
-            // todo: add unit to cell's Unit field
         }
 
         _unit.transform.position = newPosition;
