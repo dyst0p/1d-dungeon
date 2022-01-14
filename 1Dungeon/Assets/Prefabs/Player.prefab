@@ -45,10 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e980ddbf7df873847b30d25cfcfb396b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zInput: 0
-  xInput: 0
-  player: {fileID: 2540913246097673876}
-  mover: {fileID: 8760079597772012340}
   inputSensitivity: 0.5
 --- !u!1 &2406129767427261269
 GameObject:
@@ -94,9 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe974cc799aeb6e44899583347e8f1f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 2540913246097673876}
-  _playerView: {fileID: 0}
-  _offset: {x: 0, y: 0}
+  _rotateSpeed: 3
 --- !u!1 &2796823971526769523
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,13 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4925915ecb699940bda29e064cd66f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  motionTarget: {fileID: 0}
-  distanceCovered: 0
-  currentMoveDirection: 1
-  player: {fileID: 2540913246097673876}
   CurrentLookDirection: 1
-  TargetLookDirection: 1
-  angleRest: 90
 --- !u!1 &6786924503219133432
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,7 +261,19 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7531598852611850439}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnLookInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 33072493-5a1f-49fd-886c-c301ada882d4
     m_ActionName: Player/Look[/XInputControllerWindows/rightStick,/Mouse/delta]
   - m_PersistentCalls:
@@ -361,9 +361,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentCell: {fileID: 0}
+  view: {fileID: 1713160211880866250}
   walkSpeed: 3
   rotateSpeed: 120
-  view: {fileID: 1713160211880866250}
 --- !u!1 &7531598852384560386
 GameObject:
   m_ObjectHideFlags: 0

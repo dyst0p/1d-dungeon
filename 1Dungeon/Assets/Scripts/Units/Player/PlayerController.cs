@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
-//todo: add interface IController, which will collect dependensies on Awake
 public class PlayerController : BasePerformer
 {
     [SerializeField] private float inputSensitivity;
@@ -14,10 +13,12 @@ public class PlayerController : BasePerformer
 
     private PlayerData _player => _unit as PlayerData;
     private BaseMover _mover;
+    private LookDirectionController _lookController;
 
     private void Start()
     {
         _mover = transform.parent.GetComponentInChildren<BaseMover>();
+        _lookController = transform.parent.GetComponentInChildren<LookDirectionController>();
     }
 
     private void Update()
@@ -47,5 +48,12 @@ public class PlayerController : BasePerformer
     public void OnRotateClockwise(InputAction.CallbackContext context)
     {
         xInput = context.ReadValue<float>();
+    }
+    
+    public void OnLookInput(InputAction.CallbackContext context)
+    {
+        var lookInput = context.ReadValue<Vector2>();
+        var shift = lookInput.magnitude > 1 ? lookInput.normalized : lookInput;
+        _lookController.ShiftFocalPoint(shift);
     }
 }
