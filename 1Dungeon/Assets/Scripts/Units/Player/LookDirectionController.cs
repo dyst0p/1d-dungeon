@@ -22,6 +22,7 @@ public class LookDirectionController : BasePerformer
         _offset += scaledShift;
         if (_offset.magnitude > _maxOffset)
             _offset = _offset.normalized * _maxOffset;
+        //_offset = shift;
     }
 
     private void Start()
