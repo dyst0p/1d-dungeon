@@ -1375,23 +1375,33 @@ PrefabInstance:
     - target: {fileID: 5297994751446771510, guid: 59a2cb30565f4db4a9d10f61b5b4a02c,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5297994751446771510, guid: 59a2cb30565f4db4a9d10f61b5b4a02c,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5297994751446771510, guid: 59a2cb30565f4db4a9d10f61b5b4a02c,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5297994751446771510, guid: 59a2cb30565f4db4a9d10f61b5b4a02c,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5297994751446771510, guid: 59a2cb30565f4db4a9d10f61b5b4a02c,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5297994751446771510, guid: 59a2cb30565f4db4a9d10f61b5b4a02c,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 508236462}
     - target: {fileID: 5297994751446771510, guid: 59a2cb30565f4db4a9d10f61b5b4a02c,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1405,17 +1415,32 @@ PrefabInstance:
     - target: {fileID: 5297994751446771510, guid: 59a2cb30565f4db4a9d10f61b5b4a02c,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: OnLookInput
+      objectReference: {fileID: 0}
+    - target: {fileID: 5297994751446771510, guid: 59a2cb30565f4db4a9d10f61b5b4a02c,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnRotateClockwise
       objectReference: {fileID: 0}
     - target: {fileID: 5297994751446771510, guid: 59a2cb30565f4db4a9d10f61b5b4a02c,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnLookInput
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5297994751446771510, guid: 59a2cb30565f4db4a9d10f61b5b4a02c,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5297994751446771510, guid: 59a2cb30565f4db4a9d10f61b5b4a02c,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: PlayerController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5297994751446771510, guid: 59a2cb30565f4db4a9d10f61b5b4a02c,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5297994751446771510, guid: 59a2cb30565f4db4a9d10f61b5b4a02c,
         type: 3}
@@ -1481,6 +1506,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8138554788829014202, guid: 59a2cb30565f4db4a9d10f61b5b4a02c,
+        type: 3}
+      propertyPath: _maxOffset
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 8138554788829014202, guid: 59a2cb30565f4db4a9d10f61b5b4a02c,
         type: 3}

@@ -52,8 +52,9 @@ public class PlayerController : BasePerformer
     
     public void OnLookInput(InputAction.CallbackContext context)
     {
-        var lookInput = context.ReadValue<Vector2>();
-        var shift = lookInput.magnitude > 1 ? lookInput.normalized : lookInput;
-        _lookController.ShiftFocalPoint(shift);
+        // var lookInput = context.ReadValue<Vector2>();
+        // var shift = lookInput.magnitude > 1 ? lookInput.normalized : lookInput;
+        Debug.Log(context.ReadValue<Vector2>());
+        _lookController.ShiftLookDirection(context.ReadValue<Vector2>());
     }
 }

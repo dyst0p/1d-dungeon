@@ -90,7 +90,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe974cc799aeb6e44899583347e8f1f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rotateSpeed: 3
+  _maxOffset: 60
+  _rotateSpeed: 5
 --- !u!1 &2796823971526769523
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,6 +309,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 523774ad-a07d-4fde-9b85-f1b5112dade3
     m_ActionName: Gameplay/TurnLeft[/XInputControllerWindows/leftStick/left,/Keyboard/a]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 72a53461-249b-4ec9-8bc6-4191d1604e5a
+    m_ActionName: Gameplay/Look1[/XInputControllerWindows/rightStick,/Mouse/radius]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
