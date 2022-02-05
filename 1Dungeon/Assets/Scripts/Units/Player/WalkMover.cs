@@ -27,7 +27,7 @@ public class WalkMover : BaseMover
             _isTransitionMade = true;
             _unit.currentCell.Unit = null;
             _unit.currentCell = motionTarget;
-            _unit.currentCell.Unit = _unit.transform.gameObject;
+            _unit.currentCell.Unit = _unit.gameObject;
 
             float relativeTime = (TransitionDistance - distanceCovered) / (TransitionDistance / 2);
 
@@ -97,6 +97,7 @@ public class WalkMover : BaseMover
             return;
         
         motionTarget = target;
+        target.Unit = gameObject;
         InMotion = true;
         currentMoveDirection = Direction.There;
     }
