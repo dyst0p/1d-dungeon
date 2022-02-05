@@ -57,7 +57,7 @@ public class WalkMover : BaseMover
         {
             float relativeTime = angleDelta / (angleRest + angleDelta);
 
-            _unit.transform.forward = Vector3.Lerp(_unit.transform.forward,
+            _unit.transform.forward = Vector3.Slerp(_unit.transform.forward,
                 GetForwardVectorByDirection(TargetLookDirection), relativeTime);
         }
         else
