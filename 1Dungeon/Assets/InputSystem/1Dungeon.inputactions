@@ -24,7 +24,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Look",
+                    "name": "LookByMouse",
                     "type": "Value",
                     "id": "33072493-5a1f-49fd-886c-c301ada882d4",
                     "expectedControlType": "Vector2",
@@ -33,7 +33,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Look1",
+                    "name": "LookByGamepad",
                     "type": "Value",
                     "id": "72a53461-249b-4ec9-8bc6-4191d1604e5a",
                     "expectedControlType": "Vector2",
@@ -111,23 +111,12 @@
                 },
                 {
                     "name": "",
-                    "id": "c1f7a91b-d0fd-4a62-997e-7fb9b69bf235",
-                    "path": "<Gamepad>/rightStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "8c8e490b-c610-4785-884f-f04217b23ca4",
                     "path": "<Mouse>/delta",
                     "interactions": "",
-                    "processors": "ScaleVector2(x=2,y=2)",
+                    "processors": "ScaleVector2",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Look",
+                    "action": "LookByMouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -204,18 +193,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "Look1",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c8948fb4-997d-4611-a6ed-e94a4da26e6a",
-                    "path": "<Mouse>/delta",
-                    "interactions": "",
-                    "processors": "ScaleVector2(x=1E-05,y=1E-05)",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Look1",
+                    "action": "LookByGamepad",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -45,7 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e980ddbf7df873847b30d25cfcfb396b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputSensitivity: 0.5
+  _inputSensitivity: 0.5
+  _lookMouseSpeed: 1
+  _lookGamepadSpeed: 1
 --- !u!1 &2406129767427261269
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,7 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxOffset: 60
-  _rotateSpeed: 5
+  _rotateSpeed: 2.06
 --- !u!1 &2796823971526769523
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,7 +267,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7531598852611850439}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnLookInput
+        m_MethodName: OnLookMouseInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -281,7 +283,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7531598852611850439}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnGoForward
+        m_MethodName: OnMoveInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -310,7 +312,19 @@ MonoBehaviour:
     m_ActionId: 523774ad-a07d-4fde-9b85-f1b5112dade3
     m_ActionName: Gameplay/TurnLeft[/XInputControllerWindows/leftStick/left,/Keyboard/a]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7531598852611850439}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnLookGamepadInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 72a53461-249b-4ec9-8bc6-4191d1604e5a
     m_ActionName: Gameplay/Look1[/XInputControllerWindows/rightStick,/Mouse/radius]
   m_NeverAutoSwitchControlSchemes: 0

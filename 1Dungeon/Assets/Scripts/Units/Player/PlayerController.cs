@@ -7,9 +7,11 @@ using UnityEngine.Serialization;
 
 public class PlayerController : BasePerformer
 {
-    [SerializeField] private float inputSensitivity;
-    private float zInput;
-    private float xInput;
+    [SerializeField] private float _inputSensitivity;
+    [SerializeField] private float _lookMouseSpeed;
+    [SerializeField] private float _lookGamepadSpeed;
+    private float _zInput;
+    private float _xInput;
 
     private PlayerData _player => _unit as PlayerData;
     private BaseMover _mover;
@@ -25,36 +27,30 @@ public class PlayerController : BasePerformer
     {
         if (!_mover.InMotion)
         {
-            if (zInput > inputSensitivity)
+            if (_zInput > _inputSensitivity)
                 _mover.GoForward();
-            if (zInput < -inputSensitivity)
+            if (_zInput < -_inputSensitivity)
                 _mover.GoBackward();
         }
 
         if (!_mover.InRotation)
         {
-            if (xInput > inputSensitivity)
+            if (_xInput > _inputSensitivity)
                 _mover.RotateClockwise();
-            if (xInput < -inputSensitivity)
+            if (_xInput < -_inputSensitivity)
                 _mover.RotateCounterclockwise();
         }
     }
 
-    public void OnGoForward(InputAction.CallbackContext context)
-    {
-        zInput = context.ReadValue<float>();
-    }
+    public void OnMoveInput(InputAction.CallbackContext context) =>
+        _zInput = context.ReadValue<float>();
 
-    public void OnRotateClockwise(InputAction.CallbackContext context)
-    {
-        xInput = context.ReadValue<float>();
-    }
+    public void OnRotateClockwise(InputAction.CallbackContext context) =>
+        _xInput = context.ReadValue<float>();
+
+    public void OnLookMouseInput(InputAction.CallbackContext context) =>
+        _lookController.ShiftLookDirection(context.ReadValue<Vector2>() * _lookMouseSpeed);
     
-    public void OnLookInput(InputAction.CallbackContext context)
-    {
-        // var lookInput = context.ReadValue<Vector2>();
-        // var shift = lookInput.magnitude > 1 ? lookInput.normalized : lookInput;
-        Debug.Log(context.ReadValue<Vector2>());
-        _lookController.ShiftLookDirection(context.ReadValue<Vector2>());
-    }
+    public void OnLookGamepadInput(InputAction.CallbackContext context) =>
+        _lookController.ShiftLookDirection(context.ReadValue<Vector2>() * _lookGamepadSpeed);
 }
