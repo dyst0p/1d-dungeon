@@ -20,4 +20,11 @@ public class CellsManager : MonoBehaviour
         else
             CellsManager.Instance = this;
     }
+
+    public static void AddCell(BaseCell cell)
+    {
+        Instance.cells.Add(cell);
+        cell.transform.parent = Instance.transform;
+    }
+
 }
