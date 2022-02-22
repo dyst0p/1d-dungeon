@@ -52,5 +52,5 @@ public class PlayerController : BasePerformer
         _lookController.ShiftLookDirection(context.ReadValue<Vector2>() * _lookMouseSpeed);
     
     public void OnLookGamepadInput(InputAction.CallbackContext context) =>
-        _lookController.ShiftLookDirection(context.ReadValue<Vector2>() * _lookGamepadSpeed);
+        _lookController.SetLookStick(context.ReadValue<Vector2>() * _lookGamepadSpeed);
 }

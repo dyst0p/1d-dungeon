@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputSensitivity: 0.5
-  _lookMouseSpeed: 1
-  _lookGamepadSpeed: 1
+  _lookMouseSpeed: 0.4
+  _lookGamepadSpeed: 20
 --- !u!1 &2406129767427261269
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,7 +93,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxOffset: 60
-  _rotateSpeed: 2.06
+  _rotateSpeed: 5
+  _minStickInput: 5
 --- !u!1 &2796823971526769523
 GameObject:
   m_ObjectHideFlags: 0
